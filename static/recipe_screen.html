@@ -1,0 +1,202 @@
+<html>
+<head>
+<style>
+body
+{
+  margin:0;
+  background-image:url("https://raw.githubusercontent.com/riderkodi/homebrewpi/master/templates/images/grain.jpg");
+  background-repeat:no-repeat;
+  background-size:cover;
+  width:100%; height:100%;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+}
+
+.main {
+    padding: 16px;
+    margin-top: 30px;
+    height: 1500px; /* Used in this example to enable scrolling */
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+input {
+  border-radius: 5px;
+  font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  width: 50px
+}
+output {
+  border-radius: 5px;
+  font: 14px/1.4 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  width: 50px
+}
+button {
+  float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<ul>
+  <li><a href="recipe_screen.html">Recipe</a></li>
+  <li><a href="profile_screen.html">Profile</a></li>
+  <li><a href="schedule_screen.html">Schedule</a></li>
+  <li><a href="notes_screen.html">Notes</a></li>
+  <a href="startup.html"><button type="button">Back to Home</button></a>
+</ul>
+
+<div class="main">
+  <h2>Recipe Design</h2>
+
+
+    <form action="brew_calcs.php">
+    <div style="float:left">
+      <div class="col-sm-4">
+      <fieldset>
+        <legend>Strike Water Temperature</legend>
+        Grain Temperature:<input type="text" name="graintemp"><span class="units">&#8457</span>
+        <br><br>
+        Strike Temperature:<output type="text" name="striketemp"><span class="units">&#8457</span>
+      </fieldset>
+        <fieldset>
+         <legend>Strike Water Volume</legend>
+         Strike Water:<output type="text" name="strikevol"><span class="units">gal</span>
+        </fieldset>
+
+        <fieldset>
+         <legend>Strike Water Volume</legend>
+         Absorption & Mash Tun Loss:<output type="text" name="abs_loss"><span class="units">gal</span>
+         <br><br>
+         Desired First Runnings:<output type="text" name="des_first_run"><span class="units">gal</span>
+         <br><br>
+         Projected From Strike Water:<output type="text" name="proj_strike"><span class="units">gal</span>
+         <br><br>
+         Mash Out Water Available :<output type="text" name="mash_out_avail"><span class="units">gal</span>
+        </fieldset>
+
+        <fieldset>
+         <legend>Sparge Water</legend>
+         Sparge Water:<output type="text" name="sparge_vol"><span class="units">gal</span>
+        </fieldset>
+
+        <fieldset>
+         <legend>Volume Needed - Start of Boil</legend>
+         Desired Pre Boil Volume:<output type="text" name="des_pre_boil"><span class="units">gal</span>
+        </fieldset>
+
+        <fieldset>
+         <legend>Volume Needed - 15 Minutes Remaining</legend>
+         Desired Post Boil Volume:<output type="text" name="des_post_boil"><span class="units">gal</span>
+         <br><br>
+         Boil Off, Estimated:<output type="text" name="est_boil_off"><span class="units">gal</span>
+         <br><br>
+         Wort Expansion, Estimated:<output type="text" name="wort_expand"><span class="units">gal</span>
+         <br><br>
+         Total:<output type="text" name="total_vol"><span class="units">gal</span>
+        </fieldset>
+    </div>
+    </div>
+
+  <div style="float:left">
+  <div class="col-sm-4">
+  <fieldset>
+    <legend>Beer Info</legend>
+    Grain:<input type="text" name="grain"><span class="units">lbs</span>
+    <br><br>
+    Batch Size:<input type="text" name="batch_size"><span class="units">gal</span>
+    <br><br>
+    Mash Temp:<input type="text" name="mash_temp"><span class="units">&#8457</span>
+    <br><br>
+    Target Gravity:<input type="text" name="targ_g">
+    <br><br>
+    Target Gravity:<output type="text" name="tg_brix"><span class="units">brix</span>
+    <br><br>
+    Boil Time:<input type="text" name="boil_time"><span class="units">hours</span>
+    <br><br>
+    Pre Boil Volume Needed:<input type="text" name="pre_boil_vol"><span class="units">gal</span>
+  </fieldset>
+</div>
+</div>
+
+  <div class="col-sm-4">
+  <fieldset>
+    <legend>Constants</legend>
+    Boil Off Rate:<input type="text" name="boil_off"><span class="units">gal/hr</span>
+    <br><br>
+    Water Absorption:<input type="text" name="water_abs"><span class="units">gal/lb</span>
+    <br><br>
+    Mash Tun Loss:<input type="text" name="tun_loss"><span class="units">gal</span>
+    <br><br>
+    Expansion of Wort at Boiling:<input type="text" name="exp_wort">
+    <br><br>
+    Wort Correction Factor:<output type="text" name="wort_corr">
+    <br><br>
+    Boil Time:<input type="text" name="boil_time"><span class="units">hours</span>
+    <br><br>
+    Pre Boil Volume Needed:<input type="text" name="pre_boil_vol"><span class="units">gal</span>
+  </div>
+  </div>
+
+</body>
+</html>
